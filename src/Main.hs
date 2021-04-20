@@ -7,7 +7,7 @@
 
 module Main where
 
-import Clay (Css, em, pc, px, sym, (?))
+import Clay (Css, em, px, sym, (?))
 import qualified Clay as C
 import Control.Monad
 import Data.Aeson (FromJSON, fromJSON)
@@ -84,7 +84,8 @@ renderPage route val = html_ [lang_ "en"] $ do
     --   a_ [href_ "/"] "Back to Home"
     h1_ routeTitle
     case route of
-      Route_Index ->
+      Route_Index -> do
+        p_ "A course taught in the Department of Computer Science, Columbia University, in Spring 2020 and 2021."
         div_ $
           forM_ val $ \(r, src) ->
             li_ [class_ "pages"] $ do
@@ -95,7 +96,10 @@ renderPage route val = html_ [lang_ "en"] $ do
                 toHtml $ formatList $ authors meta
               renderMarkdown `mapM_` description meta
       Route_Article _ ->
-        article_ $
+        article_ $ do
+          let meta = getMeta val
+          h3_ [] $ formatList $ authors meta
+          formatGitHub $ github meta
           Pandoc.render val
   where
     routeTitle :: Html ()
@@ -105,8 +109,10 @@ renderPage route val = html_ [lang_ "en"] $ do
     renderMarkdown :: Text -> Html ()
     renderMarkdown =
       Pandoc.render . Pandoc.parsePure Pandoc.readMarkdown
-    formatList :: [Text] -> Text
-    formatList = (intercalate ", ") . (map strip)
+    formatList :: [Text] -> Html ()
+    formatList = toHtml . intercalate ", " . map strip
+    formatGitHub :: Maybe Text -> Html ()
+    formatGitHub url = a_ [href_ (fromMaybe "" url)] "Project code repository, on GitHub"
 -- | Define your site CSS here
 pageStyle :: Css
 pageStyle =
