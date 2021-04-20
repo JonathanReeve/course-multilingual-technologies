@@ -80,12 +80,38 @@ renderPage route val = html_ [lang_ "en"] $ do
     link_ [rel_ "stylesheet", href_ "https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.7.2/tufte.min.css"]
     style_ [type_ "text/css"] $ C.render pageStyle
   body_ $ do
-    -- div_ [class_ "header"] $
-    --   a_ [href_ "/"] "Back to Home"
     h1_ routeTitle
-    case route of
+    pageContent
+    footer_ $ p_ $ do
+      "All text ©2021 by respective authors. Site assembled by "
+      a_ [href_ "https://jonreeve.com/"] "Jonathan Reeve"
+      " using "
+      a_ [href_ "https://www.haskell.org/"] "Haskell"
+      " and "
+      a_ [href_ "https://github.com/srid/rib"] "Rib,"
+      " with source code available "
+      a_ [href_ "https://github.com/JonathanReeve/course-multilingual-technologies/"] "here on GitHub. "
+      "We thank the "
+      a_ [href_ "https://entrepreneurship.columbia.edu/collaboratory/"] "Collaboratory at Columbia"
+      " program for their support of this course."
+  where
+    routeTitle :: Html ()
+    routeTitle = case route of
+      Route_Index -> "Multilingual Technologies and Language Diversity"
+      Route_Article _ -> toHtml $ title $ getMeta val
+    renderMarkdown :: Text -> Html ()
+    renderMarkdown =
+      Pandoc.render . Pandoc.parsePure Pandoc.readMarkdown
+    formatList :: [Text] -> Html ()
+    formatList = toHtml . intercalate ", " . map strip
+    formatGitHub :: Maybe Text -> Html ()
+    formatGitHub url = case url of
+      Just u -> a_ [href_ u] "Project code repository, on GitHub"
+      Nothing -> toHtml T.empty
+    pageContent :: Html ()
+    pageContent = case route of
       Route_Index -> do
-        p_ "A course taught in the Department of Computer Science, Columbia University, in Spring 2020 and 2021."
+        p_ "A course taught in the Department of Computer Science, the Data Science Institute, and the Institute for Comparative Literature and Society, Columbia University, in Spring 2020 and 2021."
         div_ $
           forM_ val $ \(r, src) ->
             li_ [class_ "pages"] $ do
@@ -101,18 +127,8 @@ renderPage route val = html_ [lang_ "en"] $ do
           h3_ [] $ formatList $ authors meta
           formatGitHub $ github meta
           Pandoc.render val
-  where
-    routeTitle :: Html ()
-    routeTitle = case route of
-      Route_Index -> "Multilingual Technologies and Language Diversity"
-      Route_Article _ -> toHtml $ title $ getMeta val
-    renderMarkdown :: Text -> Html ()
-    renderMarkdown =
-      Pandoc.render . Pandoc.parsePure Pandoc.readMarkdown
-    formatList :: [Text] -> Html ()
-    formatList = toHtml . intercalate ", " . map strip
-    formatGitHub :: Maybe Text -> Html ()
-    formatGitHub url = a_ [href_ (fromMaybe "" url)] "Project code repository, on GitHub"
+
+
 -- | Define your site CSS here
 pageStyle :: Css
 pageStyle =
@@ -125,6 +141,12 @@ pageStyle =
       C.marginTop $ em 1
       C.fontSize (em 2)
       "p" ? sym C.margin (px 0)
+    "footer" ? do
+      C.fontSize (em 1)
+      C.marginTop $ em 2
+      C.position C.absolute
+      C.bottom C.none
+
 
 -- | Metadata in our markdown sources
 data SrcMeta = SrcMeta
