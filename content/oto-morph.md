@@ -76,7 +76,7 @@ $$ D_l(a, b) = \frac{1}{|W_a|} \sum_{w_a \in W_a} \min_{w_b \in W_b}(D_n(w_a, w_
 
 For each language, a 5-dimensional embedding is randomly initialized. The language embeddings are found though optimization using the linguistic distances discussed in the previous paragraph, via stochastic gradient descent. Let P be the set of all unique, unordered language pairs, $v_a$ the current language embedding for language $a$, and $d_{a,b}$ the calculated linguistic distance between languages $a$ and $b$. The loss function is defined as:
 
-$$ \sum_{(a,b) \in P} \Big| \left|\left| v_a - v_b\right|\right|_{2} - d_{a,b} \Big|$$
+![equation](https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Csum_%7B%28a%2Cb%29%20%5Cin%20P%7D%20%5CBig%7C%20%5Cleft%7C%5Cleft%7C%20v_a%20-%20v_b%5Cright%7C%5Cright%7C_%7B2%7D%20-%20d_%7Ba%2Cb%7D%20%5CBig%7C)
 
 Optimization is halted when the difference between loss values is lower than .005, averaging between 17-20 optimization rounds. This threshold was chosen manually by observing the plot of the loss function. Through this process, we achieve language embeddings that incorporate the linguistic distances between languages.
 
