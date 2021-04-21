@@ -110,49 +110,49 @@ Last but not least, we believe it essential that future research in language tec
 <a id="1">[1]</a> 
 Vylomova, et al. 2020. [SIGMORPHON 2020 Shared Task 0: Typologically Diverse Morphological Inflection](https://www.aclweb.org/anthology/2020.sigmorphon-1.1/). In *Proceedings of the 17th SIGMORPHON Workshop on Computational Research in Phonetics, Phonology, and Morphology*, pages 1–39, Online. Association for Computational Linguistics.
 
-<a id="1">[2]</a> 
+<a id="2">[2]</a> 
 Enrique L. Palancar and Jean Leo Leonard. *Tone and Inflection: New Facts and New Perspectives.* DeGruyter Mouton.
 
-<a id="1">[3]</a> 
+<a id="3">[3]</a> 
 Manuel Mager, Ximena Gutierrez-Vasques, Gerardo Sierra, and Ivan Meza. [Challenges of Language Technologies for the Indigenous Languages of the Americas.](https://www.aclweb.org/anthology/C18-1006/) In *Proceedings of the 27th International Conference on Computational Linguistics*.
 
-<a id="1">[4]</a> 
+<a id="4">[4]</a> 
 Andras Kornai. [Digital language death.](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0077056) *PLoS ONE*, 8(10).
 
-<a id="1">[5]</a> 
+<a id="5">[5]</a> 
 Victor Chahuneau. 2013. [Translating into Morphologically Rich Languages with Synthetic Phrases.](https://www.aclweb.org/anthology/D13-1174/) *Association for Computational Linguistics*.
 
-<a id="1">[6]</a> 
+<a id="6">[6]</a> 
 Antonios Anastasopoulos and Graham Neubi. 2019. [Pushing the Limits of Low-Resource Morphological Inflection.](https://www.aclweb.org/anthology/D19-1091/) *EMNLP*.
 
-<a id="1">[7]</a> 
+<a id="7">[7]</a> 
 Ben Peters and Andre F.T. Martins. 2020. [DeepSPIN at Sigmorphon 2020: One-size-fits-all Multilingual Models](https://www.aclweb.org/anthology/2020.sigmorphon-1.4/). *Association for Computational Linguistics*.
 
-<a id="1">[8]</a> 
+<a id="8">[8]</a> 
 Pablo Gamallo, Jose Ramom Pichel, and Inaki Alegria. 2020. [Measuring Language Distance of Isolated European Languages.](https://www.mdpi.com/2078-2489/11/4/181) *Information*, 11(4).
 
-<a id="1">[9]</a> 
+<a id="9">[9]</a> 
 Pablo Gamallo, Jose Ramom Pichel, and Inaki Alegria. 2017. [From language identification to language distance.](https://www.sciencedirect.com/science/article/abs/pii/S0378437117305137?via%3Dihub) *Physica A: Statistical Mechanics and its Applications*, 484:152–162.
 
-<a id="1">[10]</a> 
+<a id="10">[10]</a> 
 Ehsaneddin Asgari and Mohammad R.K. Mofrad. 2016. [Comparing fifty natural languages and twelve genetic languages using word embedding language divergence (WELD) as a quantitative measure of language distance.](https://www.aclweb.org/anthology/W16-1208/) In *Proceedings of the Workshop on Multilingual and Cross-lingual Methods in NLP*, pages 65–74, San Diego, California. *Association for Computational Linguistics*.
 
-<a id="1">[11]</a> 
+<a id="11">[11]</a> 
 M. Benjamin. 2016. [Digital language diversity: Seeking the Value Proposition.](http://www.lrec-conf.org/proceedings/lrec2016/workshops/LREC2016Workshop-CCURL2016_Proceedings.pdf#page=53) In *Collaboration and Computing for Under-Resourced Languages: Towards an Alliance for Digital Language Diversity*, page 52–58.
 
-<a id="1">[12]</a> 
+<a id="12">[12]</a> 
 S. Bird. [Decolonising speech and language technology.](https://www.aclweb.org/anthology/2020.coling-main.313/) In *Proceedings of the 28th International Conference on Computational Linguistics (COLING)*, page 3504–3519.
 
-<a id="1">[13]</a> 
+<a id="13">[13]</a> 
 S. Romaine. [The global extinction of languages and its consequences for cultural diversity.](https://www.europarl.europa.eu/RegData/etudes/note/join/2013/495851/IPOL-CULT_NT(2013)495851_EN.pdf) In *Cultural and Linguistic Minorities in the Russian Federation and the European Union*, page 31–46. Springer International Publishing, Switzerland.
 
-<a id="1">[14]</a> 
+<a id="14">[14]</a> 
 Timothy Feist and Enrique L. Palancar. [*Oto-Manguean Inflectional Class Database.*](https://oto-manguean.surrey.ac.uk/) University of Surrey.
 
-<a id="1">[15]</a> 
+<a id="15">[15]</a> 
 Hilaria Cruz, Antonios Anastasopoulos, and Gregory Stump. 2020. [A Resource for Studying Chatino Verbal Morphology.](https://www.aclweb.org/anthology/2020.lrec-1.344/) In *Proceedings of the 12th Language Resources and Evaluation Conference*, pages 2827–2831, Marseille, France. European Language Resources Association.
 
-<a id="1">[16]</a> 
+<a id="16">[16]</a> 
 Filippo Petroni and Maurizio Serva. 2010. [Measures of lexical distance between languages.](https://www.sciencedirect.com/science/article/abs/pii/S0378437110001081?via%3Dihub) *Physica A: Statistical Mechanics and its Applications*, 389(11):2280–2283.
 
 
