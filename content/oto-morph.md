@@ -1,4 +1,13 @@
-# Morphological Inflection for Oto-Manguean Languages
+---
+title: "Morphological Inflection for Oto-Manguean Languages"
+description: "Leveraging lexicostatistical information for multilingual morphological inflection"
+date: 2021-04-22
+authors: 
+ - Sahil Jayaram
+ - Diana Abagyan
+ - Tiansheng Sun
+github: https://github.com/SahilJ97/Oto-Morph
+---
 
 ### Abstract
 We present a novel approach to the task of multilingual morphological inflection that utilizes lexicostatistical information, focusing on the Oto-Manguean language family. Unlike the state-of-the-art approach on which ours is based, we forgo transfer learning, instead relying solely on data for the Oto-Manguean languages of interest. Consequently, our model falls notably short of the state of the art in overall accuracy. However, our results demonstrate that initializing language embeddings according to interlingual Levenshtein distances rather than at random produces results that are more balanced across languages, as well as higher overall.
