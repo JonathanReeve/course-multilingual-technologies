@@ -55,13 +55,14 @@ Each line of the data files is organized as follows:
 
 The task is to convert the lemma to the target form based on the tags. For the purposes of our model, we represent words as sequences of characters, and tag sets as sequences of tags. Typically, one letter of a word is a character. However, tone superscripts are considered together with the preceding alphabet as one character. Each tag and character is assigned an index. In total, there are 30 tags and 414 different characters. The maximum character length of a word is 27. The words and tags are passed to the model as sequences of one-hot vectors.
 
-INSERT FIGURE 1
-INSERT FIGURE 2
+![fig1](./static/oto-fig1.png)
+
+![fig2](./static/oto-fig2.png)
 
 #### Model
 The general structure of our model is similar to that of Peters and Martins [[7]](#7) (Figure 3). Our model differs from that of Peters and Martins in two ways. First, because the cardinality of our language set is 10 rather than 90, we use a language embedding size of 5 rather than 20. Second, in order to compensate for the scarceness and lower linguistic variance of our training data, we reduce the parametric complexity of the decoder's attention mechanism by replacing gated two-headed attention with vanilla single-headed attention.
 
-INSERT FIGURE 3
+![fig3](./static/oto-fig3.png)
 
 #### Linguistic Distance
 We experiment with "smart" initialization methods for the language embeddings, informed by lexicostatistics. We use normalized Levenshtein distance as our linguistic distance measure, as defined by Petroni and Serva [[16]](#16). Levenshtein distance between two words is defined as the minimum number of insertions, substitutions, or deletions of a single character needed to transform one word into the other. The modification is normalized by the length of the longer word. Thus, for 2 words ![equation](https://latex.codecogs.com/gif.latex?%5Cbg_white%20w_a) and ![equation](https://latex.codecogs.com/gif.latex?%5Cbg_white%20w_b), normalized Levenshein distance ![equation](https://latex.codecogs.com/gif.latex?%5Cbg_white%20D_n) is defined as:
@@ -86,14 +87,16 @@ We trained a total of 6 models (3 random seeds per initialization scheme). Our m
 We present the averages of our results in Figure 4 and Figure 5. Our model achieves an overall accuracy of 58.4\% using random initialization language embeddings, and 59.6\% using Levenshtein distance, both of which are lower than the score achieved by Peter and Martins' model (83.45\%). We believe that the main reason for this discrepancy is that our system, unlike ![equation](https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Ctexttt%7Bdeepspin-02-1%7D), did not utilize transfer learning, instead relying solely on data from the 10 languages on which it was evaluated. Figure 6 demonstrates our highest-performing model "in action."
 
 
-INSERT REMAINING FIGURES (IN ORDER)
+![fig4](./static/oto-fig4.png)
+
+![fig567](./static/oto-fig5-7.png)
 
 
 #### Error Analysis
 
 Our results provide strong evidence that using Levenshtein distance information improves performance in a multilingual, low-resource scenario. With random initial language embeddings, several languages, such as Tlatepuzco Chinantec, Eastern Highland Otomi, Yoloxóchitl Mixtec, and Chichicapan Zapotec, received 0\% accuracy. With Levenshtein distance, model performance on these languages improved significantly. Although we observed a decrease in accuracy for other languages, such as San Pedro Amuzgo Amazgos, Yaitepec Chatino and Zenzontepec Chatino, the models that accounted for Levenshtein distance  achieved slightly higher overall accuracy and more balanced results across different languages.
 
-We conducted an analysis to identify possible explanations for the aforementioned "balancing" effect. We found no strong correlation between the change in language-level accuracy from **ran** to **ld** ![equation](https://latex.codecogs.com/gif.latex?%5Cbg_white%20%28%5CDelta_a%29) and either train set size or mean squared Levenshtein distance. We present our analysis in Figure 7.
+We conducted an analysis to identify possible explanations for the aforementioned "balancing" effect. We found no strong correlation between the change in language-level accuracy from **ran** to **ld** ( ![equation](https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5CDelta_a) ) and either train set size or mean squared Levenshtein distance. We present our analysis in Figure 7.
 
 ### Conclusions
 We have yet to determine the reason why using linguistically-motivated initial language embeddings, in lieu of randomly initialized language embeddings, produces the trade-off mentioned in [here](#error-analysis). However, we believe that the matter is deserving of further investigation.
