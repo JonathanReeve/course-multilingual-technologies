@@ -221,7 +221,7 @@ large .txt files into the smaller components. However, giving the
 limited data we had this method proved useful to see how much individual
 texts contributed to the model.
 ![\
-Fig1. Example of our parallel corpus](Screen Shot 2021-04-16 at 6.40.00 PM.png "fig:")\
+Fig1. Example of our parallel corpus](parallel_ex.png "fig:")\
 
 Model Design
 ------------
@@ -300,7 +300,7 @@ examples of a few of these cases are shown in Figure 3.
 
 ![\
 Fig 3. Example of problematic predictions
-](Screen Shot 2021-04-16 at 6.54.34 PM.png)
+](problem_ex.png)\
 
 Keyphrases from the Tibetan sentence are interpreted wrongly in the same
 way, and then the model learns to be confident about its predictions
