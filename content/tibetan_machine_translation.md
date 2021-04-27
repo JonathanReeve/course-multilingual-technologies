@@ -221,7 +221,7 @@ large .txt files into the smaller components. However, giving the
 limited data we had this method proved useful to see how much individual
 texts contributed to the model.
 ![\
-Fig1. Example of our parallel corpus](Screen Shot 2021-04-16 at 6.40.00 PM.png "fig:")\
+Fig1. Example of our parallel corpus](parallel_ex.png "fig:")
 
 Model Design
 ------------
@@ -235,7 +235,7 @@ layer. The multi part of the multi headed attention means that each head
 will encode the information in parallel and then the results will be
 concatenated and passed to the decoder. Figure one demonstrates this
 process. ![\
-Fig 2. Overview of a Transformer model @c11](Transformer.png "fig:")\
+Fig 2. Overview of a Transformer model @c11](Transformer.png "fig:")
 
 To prevent overfitting and to augment the data, we added in a switchout
 transform which will randomly switch out words in the source and target
@@ -271,11 +271,10 @@ performed.
 
 Results
 =======
+| Validation & Ave | Pred | Score | PPL & BLE |
+|------:|:-----|---------|:------:|
+|   40.32%   |  -1.69  |    5.41   |   23.01%  |
 
-<span> |c| c| c| c| </span> Validation & Ave. Pred. Score & PPL & BLEU\
-40.32% & -1.69 & 5.41 & 23.01%\
-
-\
 
 Our six layer transformer model with switch out was unsuccessful at
 translating religious Tibetan to English. The translated output does not
@@ -300,7 +299,7 @@ examples of a few of these cases are shown in Figure 3.
 
 ![\
 Fig 3. Example of problematic predictions
-](Screen Shot 2021-04-16 at 6.54.34 PM.png)
+](problem_ex.png)
 
 Keyphrases from the Tibetan sentence are interpreted wrongly in the same
 way, and then the model learns to be confident about its predictions
@@ -429,7 +428,6 @@ thank Professor Thomas Yarnall and Professor Paul Hackett for providing
 additional advice. Lastly, we would like to thank the 84000 project for
 providing open source parallel Tibetan corpora.
 
-<span>99</span>
 
 Cai Z. (2015) A Method for the Chinese-Tibetan Machine Translation
 System’s Syntactic Analysis. In: Wong W. (eds) Proceedings of the 4th
