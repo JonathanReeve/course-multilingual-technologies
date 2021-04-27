@@ -7,7 +7,8 @@ A website for the course, Multilingual Technologies and Language Diversity, taug
 Students, to submit your final projects, submit a pull request to this repository, where you add a new markdown file to the `content` folder. See [the example](https://github.com/JonathanReeve/course-multilingual-technologies/blob/master/content/first-post.md). 
 
 If you've never written markdown before, see [this cheat sheet](https://www.markdownguide.org/cheat-sheet). 
-
+ - You can insert LaTeX equations by surrounding them with `$`. 
+ 
 And if you've never submitted a pull request before, see [the instructions in the example](https://github.com/JonathanReeve/course-multilingual-technologies/blob/master/content/first-post.md), or [one of the many tutorials for GitHub pull requests](https://duckduckgo.com/?q=github+pull+request&ia=web). Let us know if you have any questions.
 
 ## Building

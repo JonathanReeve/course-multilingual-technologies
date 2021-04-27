@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GADTs #-}
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -10,6 +11,7 @@ module Main where
 import Clay (Css, em, px, sym, (?))
 import qualified Clay as C
 import Control.Monad
+import Control.Monad.Except (runExcept, MonadError, liftEither)
 import Data.Aeson (FromJSON, fromJSON)
 import Data.Maybe (fromMaybe)
 import qualified Data.Aeson as Aeson
@@ -23,6 +25,15 @@ import Rib (IsRoute, Pandoc)
 import qualified Rib
 import qualified Rib.Parser.Pandoc as Pandoc
 import System.FilePath
+import Text.Pandoc
+import Text.Pandoc.Options (HTMLMathMethod(MathJax))
+import Text.Pandoc.Extensions (pandocExtensions)
+import Relude (first)
+
+mathJaxURL :: Text
+mathJaxURL = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 
 -- | Route corresponding to each generated static page.
 --
@@ -78,6 +89,9 @@ renderPage route val = html_ [lang_ "en"] $ do
     meta_ [httpEquiv_ "Content-Type", content_ "text/html; charset=utf-8"]
     title_ routeTitle
     link_ [rel_ "stylesheet", href_ "https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.7.2/tufte.min.css"]
+    script_ [type_ "text/javascript", id_ "mathjax-script", src_ mathJaxURL, async_ T.empty ] T.empty
+    script_ [type_ "text/x-mathjax-config"] ("MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});" :: Html ())
+
     style_ [type_ "text/css"] $ C.render pageStyle
   body_ $ do
     h1_ routeTitle
@@ -100,8 +114,7 @@ renderPage route val = html_ [lang_ "en"] $ do
       Route_Index -> "Multilingual Technologies and Language Diversity"
       Route_Article _ -> toHtml $ title $ getMeta val
     renderMarkdown :: Text -> Html ()
-    renderMarkdown =
-      Pandoc.render . Pandoc.parsePure Pandoc.readMarkdown
+    renderMarkdown = render . parsePure Pandoc.readMarkdown
     formatList :: [Text] -> Html ()
     formatList = toHtml . intercalate ", " . map strip
     formatGitHub :: Maybe Text -> Html ()
@@ -126,8 +139,37 @@ renderPage route val = html_ [lang_ "en"] $ do
           let meta = getMeta val
           h3_ [] $ formatList $ authors meta
           formatGitHub $ github meta
-          Pandoc.render val
+          render val
 
+-- | I'm rewriting [this function from Rib](https://github.com/srid/rib/blob/master/rib/src/Rib/Parser/Pandoc.hs#L41)
+-- so I can add extra extensions to the Pandoc reader.
+parsePure :: (ReaderOptions -> Text -> PandocPure Pandoc) -> Text -> Pandoc
+parsePure textReader s =
+  either (error . show) id $ runExcept $ do
+    (liftEither . runPure) $ textReader (def {readerExtensions = exts}) s
+
+exts :: Extensions
+exts =
+  mconcat
+    [ extensionsFromList
+        [ Ext_yaml_metadata_block,
+          Ext_tex_math_dollars,
+          Ext_pipe_tables,
+          Ext_fenced_code_attributes,
+          Ext_auto_identifiers,
+          Ext_smart
+        ],
+      githubMarkdownExtensions
+    ]
+
+-- | And I have to rewrite [this function](https://github.com/srid/rib/blob/master/rib/src/Rib/Parser/Pandoc.hs#L63),
+-- too, to make sure it writes MathJax-compatible equations
+render :: Monad m => Pandoc -> HtmlT m ()
+render doc =
+  either error id $ first show $ runExcept $ do
+    liftEither . runPure $ toHtmlRaw <$> writeHtml5String writerSettings doc
+    where writerSettings = def {writerExtensions = exts
+                               ,writerHTMLMathMethod = MathJax mathJaxURL}
 
 -- | Define your site CSS here
 pageStyle :: Css

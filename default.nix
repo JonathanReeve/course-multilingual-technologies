@@ -19,7 +19,7 @@ in {
 # Cabal project root
 , root ? gitignoreSource ./.
 # Cabal project name
-, name ? "rib-sample"
+, name ? "course-multilingual-technologies"
 , ...
 }:
 
