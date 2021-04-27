@@ -1,5 +1,5 @@
 <html lang="en"><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Morphological Inflection for Oto-Manguean Languages
-</title><link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.7.2/tufte.min.css" rel="stylesheet"><style type="text/css">
+</title><link href="https://cdnjs.cloudflare.com/ajax/libs/tufte-css/1.7.2/tufte.min.css" rel="stylesheet"><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="mathjax-script" type="text/javascript"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [[&#39;$&#39;,&#39;$&#39;], [&#39;\(&#39;,&#39;\)&#39;]]}});</script><style type="text/css">
 
 body .header
 {
@@ -58,11 +58,11 @@ body footer
 <p><embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Cbegin%7Bquote%7D%20%5Ctexttt%7B%20lemma%20%5Cquad%20target%5C_form%20%5Cquad%20tags%20%7D%20%5Cend%7Bquote%7D" /></p>
 <p>where <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Ctexttt%7Blemma%7D" /> is the original word, <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Ctexttt%7Btarget%5C_form%7D" /> is the inflected form, and <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Ctexttt%7Btags%7D" /> is a list of (typically 4 to 5) rules that define the inflection, separated by semicolons.</p>
 <p>The task is to convert the lemma to the target form based on the tags. For the purposes of our model, we represent words as sequences of characters, and tag sets as sequences of tags. Typically, one letter of a word is a character. However, tone superscripts are considered together with the preceding alphabet as one character. Each tag and character is assigned an index. In total, there are 30 tags and 414 different characters. The maximum character length of a word is 27. The words and tags are passed to the model as sequences of one-hot vectors.</p>
-<p><img src="./static/oto-fig1.png" alt="fig1" /></p>
-<p><img src="./static/oto-fig2.png" alt="fig2" /></p>
+<p><img src="/static/oto-fig1.png" alt="fig1" /></p>
+<p><img src="/static/oto-fig2.png" alt="fig2" /></p>
 <h4 id="model">Model</h4>
 <p>The general structure of our model is similar to that of Peters and Martins <a href="#7">[7]</a> (Figure 3). Our model differs from that of Peters and Martins in two ways. First, because the cardinality of our language set is 10 rather than 90, we use a language embedding size of 5 rather than 20. Second, in order to compensate for the scarceness and lower linguistic variance of our training data, we reduce the parametric complexity of the decoder’s attention mechanism by replacing gated two-headed attention with vanilla single-headed attention.</p>
-<p><img src="./static/oto-fig3.png" alt="fig3" /></p>
+<p><img src="/static/oto-fig3.png" alt="fig3" /></p>
 <h4 id="linguistic-distance">Linguistic Distance</h4>
 <p>We experiment with “smart” initialization methods for the language embeddings, informed by lexicostatistics. We use normalized Levenshtein distance as our linguistic distance measure, as defined by Petroni and Serva <a href="#16">[16]</a>. Levenshtein distance between two words is defined as the minimum number of insertions, substitutions, or deletions of a single character needed to transform one word into the other. The modification is normalized by the length of the longer word. Thus, for 2 words <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20w_a" /> and <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20w_b" />, normalized Levenshein distance <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20D_n" /> is defined as:</p>
 <p><embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20D_n%28w_a%2C%20w_b%29%20%3D%20%5Cfrac%7BD%28w_a%2C%20w_b%29%7D%7Bmax%28%7Cw_a%7C%2C%20%7Cw_b%7C%29%7D" /></p>
@@ -76,8 +76,8 @@ body footer
 <h3 id="findings">Findings</h3>
 <h4 id="results">Results</h4>
 <p>We present the averages of our results in Figure 4 and Figure 5. Our model achieves an overall accuracy of 58.4\% using random initialization language embeddings, and 59.6\% using Levenshtein distance, both of which are lower than the score achieved by Peter and Martins’ model (83.45\%). We believe that the main reason for this discrepancy is that our system, unlike <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5Ctexttt%7Bdeepspin-02-1%7D" />, did not utilize transfer learning, instead relying solely on data from the 10 languages on which it was evaluated. Figure 6 demonstrates our highest-performing model “in action.”</p>
-<p><img src="./static/oto-fig4.png" alt="fig4" /></p>
-<p><img src="./static/oto-fig5-7.png" alt="fig567" /></p>
+<p><img src="/static/oto-fig4.png" alt="fig4" /></p>
+<p><img src="/static/oto-fig5-7.png" alt="fig567" /></p>
 <h4 id="error-analysis">Error Analysis</h4>
 <p>Our results provide strong evidence that using Levenshtein distance information improves performance in a multilingual, low-resource scenario. With random initial language embeddings, several languages, such as Tlatepuzco Chinantec, Eastern Highland Otomi, Yoloxóchitl Mixtec, and Chichicapan Zapotec, received 0\% accuracy. With Levenshtein distance, model performance on these languages improved significantly. Although we observed a decrease in accuracy for other languages, such as San Pedro Amuzgo Amazgos, Yaitepec Chatino and Zenzontepec Chatino, the models that accounted for Levenshtein distance achieved slightly higher overall accuracy and more balanced results across different languages.</p>
 <p>We conducted an analysis to identify possible explanations for the aforementioned “balancing” effect. We found no strong correlation between the change in language-level accuracy from <strong>ran</strong> to <strong>ld</strong> ( <embed src="https://latex.codecogs.com/gif.latex?%5Cbg_white%20%5CDelta_a" /> ) and either train set size or mean squared Levenshtein distance. We present our analysis in Figure 7.</p>
