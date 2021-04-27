@@ -220,9 +220,8 @@ Note that it was not strictly necessary to separate the creation of the
 large .txt files into the smaller components. However, giving the
 limited data we had this method proved useful to see how much individual
 texts contributed to the model.
-
-![The first few lines of our fully concatenated parallel
-corpus](Screen Shot 2021-04-16 at 6.40.00 PM.png)
+![\
+Fig1. Example of our parallel corpus](Screen Shot 2021-04-16 at 6.40.00 PM.png "fig:")\
 
 Model Design
 ------------
