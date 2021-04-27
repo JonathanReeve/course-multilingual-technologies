@@ -271,11 +271,10 @@ performed.
 
 Results
 =======
+| Validation & Ave | Pred | Score | PPL & BLE |
+|------:|:-----|---------|:------:|
+|   40.32%   |  -1.69  |    5.41   |   23.01%  |
 
-<span> |c| c| c| c| </span> Validation & Ave. Pred. Score & PPL & BLEU\
-40.32% & -1.69 & 5.41 & 23.01%\
-
-\
 
 Our six layer transformer model with switch out was unsuccessful at
 translating religious Tibetan to English. The translated output does not
@@ -429,7 +428,6 @@ thank Professor Thomas Yarnall and Professor Paul Hackett for providing
 additional advice. Lastly, we would like to thank the 84000 project for
 providing open source parallel Tibetan corpora.
 
-<span>99</span>
 
 Cai Z. (2015) A Method for the Chinese-Tibetan Machine Translation
 System’s Syntactic Analysis. In: Wong W. (eds) Proceedings of the 4th
