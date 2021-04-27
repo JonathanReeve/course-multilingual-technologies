@@ -221,7 +221,7 @@ large .txt files into the smaller components. However, giving the
 limited data we had this method proved useful to see how much individual
 texts contributed to the model.
 ![\
-Fig1. Example of our parallel corpus](parallel_ex.png "fig:")
+Fig1. Example of our parallel corpus](static/parallel_ex.png "fig:")
 
 Model Design
 ------------
@@ -235,7 +235,7 @@ layer. The multi part of the multi headed attention means that each head
 will encode the information in parallel and then the results will be
 concatenated and passed to the decoder. Figure one demonstrates this
 process. ![\
-Fig 2. Overview of a Transformer model @c11](Transformer.png "fig:")
+Fig 2. Overview of a Transformer model @c11](static/Transformer.png "fig:")
 
 To prevent overfitting and to augment the data, we added in a switchout
 transform which will randomly switch out words in the source and target
@@ -299,7 +299,7 @@ examples of a few of these cases are shown in Figure 3.
 
 ![\
 Fig 3. Example of problematic predictions
-](problem_ex.png)
+](static/problem_ex.png)
 
 Keyphrases from the Tibetan sentence are interpreted wrongly in the same
 way, and then the model learns to be confident about its predictions
