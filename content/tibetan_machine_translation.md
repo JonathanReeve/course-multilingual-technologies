@@ -220,8 +220,8 @@ Note that it was not strictly necessary to separate the creation of the
 large .txt files into the smaller components. However, giving the
 limited data we had this method proved useful to see how much individual
 texts contributed to the model.
-![\
-Fig1. Example of our parallel corpus](static/parallel_ex.png "fig:")
+
+![Fig1. Example of our parallel corpus](/static/parallel_ex.png)
 
 Model Design
 ------------
@@ -234,8 +234,9 @@ focuses on the encoded sentence, and then outputs to a feed forward
 layer. The multi part of the multi headed attention means that each head
 will encode the information in parallel and then the results will be
 concatenated and passed to the decoder. Figure one demonstrates this
-process. ![\
-Fig 2. Overview of a Transformer model @c11](static/Transformer.png "fig:")
+process. 
+
+![Fig 2. Overview of a Transformer model @c11](/static/Transformer.png "fig:")
 
 To prevent overfitting and to augment the data, we added in a switchout
 transform which will randomly switch out words in the source and target
@@ -243,13 +244,13 @@ sentence. This also has the added advantage of augmenting the data even
 further which is especially important for our problem as religious
 Tibetan has a relatively small corpus, around 30 thousand words. We also
 attempted to use masking, however we found it to be ineffective. Masking
-hides tokens from the model by replacing the tokens with a \<mask\>
+hides tokens from the model by replacing the tokens with a `<mask>`
 token. Tibetan tokens are not separated in the same way that Latin
 languages separate their tokens. For example, a line in our test corpus
 translated to “Having the altruistic intention of excellent bodhicitta.”
 However, the Tibetan word is only one token. Therefore, the mask would
 not help the model learn at all, as the entire sentence would be marked
-as \<mask\> and there would not be enough context for our model to
+as `<mask>` and there would not be enough context for our model to
 discover the meaning. As a result, we did not use any form of masking in
 our model. Switchout does not create the same problem as their is always
 a token to take its place.
@@ -271,9 +272,9 @@ performed.
 
 Results
 =======
-| Validation & Ave | Pred | Score | PPL & BLE |
-|------:|:-----|---------|:------:|
-|   40.32%   |  -1.69  |    5.41   |   23.01%  |
+| Validation & Ave | Pred  | Score | PPL & BLE |
+|-----------------:|:------|-------|:---------:|
+|           40.32% | -1.69 | 5.41  | 23.01%    |
 
 
 Our six layer transformer model with switch out was unsuccessful at
@@ -297,9 +298,7 @@ perplexity is low because the model is confident in the first part of
 the sentence. This phenomenon is repeated throughout the results. Some
 examples of a few of these cases are shown in Figure 3.
 
-![\
-Fig 3. Example of problematic predictions
-](static/problem_ex.png)
+![Fig 3. Example of problematic predictions](/static/problem_ex.png)
 
 Keyphrases from the Tibetan sentence are interpreted wrongly in the same
 way, and then the model learns to be confident about its predictions
@@ -418,8 +417,8 @@ data or stop repeated tokens along with insights that may come from
 completing primary diligence in the form of conversations with native
 speakers.
 
-ACKNOWLEDGMENT {#acknowledgment .unnumbered}
-==============
+ACKNOWLEDGMENTS
+===============
 
 The authors would like to thank Palden Gyal for volunteering to read our
 translated texts. We would also like to thank Smara Muresan, Isabelle
